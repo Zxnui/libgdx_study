@@ -7,10 +7,13 @@ import com.badlogic.gdx.files.FileHandle;
  * 配置文件操作
  */
 public class Settings {
-	public static boolean soundEnabled = true;
+	public static boolean soundEnabled = true;//控制整体音乐是否播放
 	public static int[] highscores = new int[] {100, 80, 50, 30, 10};
 	public final static String file = ".superjumper";
 
+	/**
+	 * 加载默认配置信息，音乐和分数信息
+     */
 	public static void load () {
 		try {
 			FileHandle filehandle = Gdx.files.external(file);

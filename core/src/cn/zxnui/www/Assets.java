@@ -103,6 +103,7 @@ public class Assets {
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("data/click.wav"));
 	}
 
+	//播放音乐
 	public static void playSound (Sound sound) {
 		if (Settings.soundEnabled) sound.play(1);
 	}

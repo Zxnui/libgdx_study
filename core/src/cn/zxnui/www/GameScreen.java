@@ -42,7 +42,7 @@ public class GameScreen extends ScreenAdapter {
 		guiCam.position.set(320 / 2, 480 / 2, 0);
 		touchPoint = new Vector3();
 
-		//游戏中动作触发的声音
+		//游戏中触发的声音
 		worldListener = new WorldListener() {
 			@Override
 			public void jump () {

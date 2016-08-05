@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
+/**
+ * 历史分数页面
+ */
 public class HighscoresScreen extends ScreenAdapter {
 	ZxnuiGame game;
 	OrthographicCamera guiCam;

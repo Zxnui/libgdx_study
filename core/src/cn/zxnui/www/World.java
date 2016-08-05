@@ -38,12 +38,12 @@ public class World {
 	public int state;
 
 	public World (WorldListener listener) {
-		this.bob = new Bob(5, 1);
-		this.platforms = new ArrayList<Platform>();
-		this.springs = new ArrayList<Spring>();
-		this.squirrels = new ArrayList<Squirrel>();
-		this.coins = new ArrayList<Coin>();
-		this.listener = listener;
+		this.bob = new Bob(5, 1);//初始化角色
+		this.platforms = new ArrayList<Platform>();//平台
+		this.springs = new ArrayList<Spring>();//弹簧(可以跳的更高)
+		this.squirrels = new ArrayList<Squirrel>();//怪物
+		this.coins = new ArrayList<Coin>();//金币
+		this.listener = listener;//常用声音
 		rand = new Random();
 		generateLevel();
 
@@ -52,16 +52,24 @@ public class World {
 		this.state = WORLD_STATE_RUNNING;
 	}
 
+	/**
+	 * 不断产生新的平台，让角色跳，最后产生终点城堡
+     */
 	private void generateLevel () {
 		float y = Platform.PLATFORM_HEIGHT / 2;
 		float maxJumpHeight = Bob.BOB_JUMP_VELOCITY * Bob.BOB_JUMP_VELOCITY / (2 * -gravity.y);
 		while (y < WORLD_HEIGHT - WORLD_WIDTH / 2) {
+			//80%产生静态的落脚平台，20%产生移动类型的平台
 			int type = rand.nextFloat() > 0.8f ? Platform.PLATFORM_TYPE_MOVING : Platform.PLATFORM_TYPE_STATIC;
+
+			//平台坐标点位置，随机
 			float x = rand.nextFloat() * (WORLD_WIDTH - Platform.PLATFORM_WIDTH) + Platform.PLATFORM_WIDTH / 2;
 
+			//新平台
 			Platform platform = new Platform(type, x, y);
 			platforms.add(platform);
 
+			//静态平台中10%的几率，出现怪物
 			if (rand.nextFloat() > 0.9f && type != Platform.PLATFORM_TYPE_MOVING) {
 				Spring spring = new Spring(platform.position.x, platform.position.y + Platform.PLATFORM_HEIGHT / 2
 					+ Spring.SPRING_HEIGHT / 2);
@@ -84,6 +92,7 @@ public class World {
 			y -= rand.nextFloat() * (maxJumpHeight / 3);
 		}
 
+		//最后城堡的位置
 		castle = new Castle(WORLD_WIDTH / 2, y);
 	}
 

@@ -35,21 +35,25 @@ public class MainMenuScreen extends ScreenAdapter {
 		if (Gdx.input.justTouched()) {
 			guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 
+			//点击play，开始游戏
 			if (playBounds.contains(touchPoint.x, touchPoint.y)) {
 				Assets.playSound(Assets.clickSound);
 				game.setScreen(new GameScreen(game));
 				return;
 			}
+			//高分显示
 			if (highscoresBounds.contains(touchPoint.x, touchPoint.y)) {
 				Assets.playSound(Assets.clickSound);
 				game.setScreen(new HighscoresScreen(game));
 				return;
 			}
+			//帮助显示
 			if (helpBounds.contains(touchPoint.x, touchPoint.y)) {
 				Assets.playSound(Assets.clickSound);
 				game.setScreen(new HelpScreen(game));
 				return;
 			}
+			//背景音乐播放
 			if (soundBounds.contains(touchPoint.x, touchPoint.y)) {
 				Assets.playSound(Assets.clickSound);
 				Settings.soundEnabled = !Settings.soundEnabled;

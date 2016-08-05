@@ -3,6 +3,9 @@ package cn.zxnui.www;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * 入口
+ */
 public class ZxnuiGame extends Game {
 	public SpriteBatch batcher;
 
