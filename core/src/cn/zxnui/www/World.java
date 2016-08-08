@@ -53,11 +53,13 @@ public class World {
 	}
 
 	/**
-	 * 不断产生新的平台，让角色跳，最后产生终点城堡
+	 * 在整个游戏过程中，资源加载顺序和逻辑。平台/弹簧/松鼠/金币/最后终点城堡
      */
 	private void generateLevel () {
 		float y = Platform.PLATFORM_HEIGHT / 2;
 		float maxJumpHeight = Bob.BOB_JUMP_VELOCITY * Bob.BOB_JUMP_VELOCITY / (2 * -gravity.y);
+
+		//当角色可以一次跳跃到达顶点时，不再产生平台
 		while (y < WORLD_HEIGHT - WORLD_WIDTH / 2) {
 			//80%产生静态的落脚平台，20%产生移动类型的平台
 			int type = rand.nextFloat() > 0.8f ? Platform.PLATFORM_TYPE_MOVING : Platform.PLATFORM_TYPE_STATIC;
@@ -69,19 +71,21 @@ public class World {
 			Platform platform = new Platform(type, x, y);
 			platforms.add(platform);
 
-			//静态平台中10%的几率，出现怪物
+			//静态平台中10%的几率，出现弹簧
 			if (rand.nextFloat() > 0.9f && type != Platform.PLATFORM_TYPE_MOVING) {
 				Spring spring = new Spring(platform.position.x, platform.position.y + Platform.PLATFORM_HEIGHT / 2
 					+ Spring.SPRING_HEIGHT / 2);
 				springs.add(spring);
 			}
 
+			//角色到达世界1/3高度时，20%的机会产生会飞的松鼠
 			if (y > WORLD_HEIGHT / 3 && rand.nextFloat() > 0.8f) {
 				Squirrel squirrel = new Squirrel(platform.position.x + rand.nextFloat(), platform.position.y
 					+ Squirrel.SQUIRREL_HEIGHT + rand.nextFloat() * 2);
 				squirrels.add(squirrel);
 			}
 
+			//40%几率，产生金币
 			if (rand.nextFloat() > 0.6f) {
 				Coin coin = new Coin(platform.position.x + rand.nextFloat(), platform.position.y + Coin.COIN_HEIGHT
 					+ rand.nextFloat() * 3);
@@ -96,6 +100,11 @@ public class World {
 		castle = new Castle(WORLD_WIDTH / 2, y);
 	}
 
+	/**
+	 * 更新当前世界所有素材状态
+	 * @param deltaTime	时间
+	 * @param accelX	手机端，来回晃动手机的速度，角色可以根据，用户晃动手机的速度，确认角色左右移动的距离
+     */
 	public void update (float deltaTime, float accelX) {
 		updateBob(deltaTime, accelX);
 		updatePlatforms(deltaTime);

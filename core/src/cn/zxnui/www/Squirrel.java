@@ -1,5 +1,8 @@
 package cn.zxnui.www;
 
+/**
+ * 松鼠，能够移动，阻碍角色前进
+ */
 public class Squirrel extends DynamicGameObject {
 	public static final float SQUIRREL_WIDTH = 1;
 	public static final float SQUIRREL_HEIGHT = 0.6f;

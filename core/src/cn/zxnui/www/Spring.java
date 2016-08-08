@@ -1,7 +1,7 @@
 package cn.zxnui.www;
 
 /**
- * 怪物，松鼠
+ * 增加弹跳力的弹簧
  */
 public class Spring extends GameObject {
 	public static float SPRING_WIDTH = 0.3f;

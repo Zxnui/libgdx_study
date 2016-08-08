@@ -64,14 +64,14 @@ public class GameScreen extends ScreenAdapter {
 				Assets.playSound(Assets.coinSound);
 			}
 		};
-		//加载游戏总体场景
+		//整体游戏过程中，各种物体根据规则产生
 		world = new World(worldListener);
 
 		renderer = new WorldRenderer(game.batcher, world);
-		pauseBounds = new Rectangle(320 - 64, 480 - 64, 64, 64);
-		resumeBounds = new Rectangle(160 - 96, 240, 192, 36);
-		quitBounds = new Rectangle(160 - 96, 240 - 36, 192, 36);
-		lastScore = 0;
+		pauseBounds = new Rectangle(320 - 64, 480 - 64, 64, 64);//暂停按钮位置
+		resumeBounds = new Rectangle(160 - 96, 240, 192, 36);//继续游戏按钮位置
+		quitBounds = new Rectangle(160 - 96, 240 - 36, 192, 36);//退出游戏按钮位置
+		lastScore = 0;//分数
 		scoreString = "SCORE: 0";
 	}
 
@@ -97,23 +97,33 @@ public class GameScreen extends ScreenAdapter {
 		}
 	}
 
+	/**
+	 * 游戏处于准备状态，可以进行的操作
+     */
 	private void updateReady () {
 		if (Gdx.input.justTouched()) {
 			state = GAME_RUNNING;
 		}
 	}
 
+	/**
+	 * 游戏在运行和，可以响应的用户操作
+	 * @param deltaTime
+     */
 	private void updateRunning (float deltaTime) {
+		//用户触摸屏幕(鼠标或手指，只要触发就运行)
 		if (Gdx.input.justTouched()) {
 			guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 
+			//若触摸到暂停按钮区域，游戏暂停
 			if (pauseBounds.contains(touchPoint.x, touchPoint.y)) {
 				Assets.playSound(Assets.clickSound);
 				state = GAME_PAUSED;
 				return;
 			}
 		}
-		
+
+		//获取此时游戏是运行在手机端，还是在pc端
 		ApplicationType appType = Gdx.app.getType();
 		
 		// should work also with Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer)

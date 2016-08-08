@@ -1,5 +1,8 @@
 package cn.zxnui.www;
 
+/**
+ * 金币
+ */
 public class Coin extends GameObject {
 	public static final float COIN_WIDTH = 0.5f;
 	public static final float COIN_HEIGHT = 0.8f;

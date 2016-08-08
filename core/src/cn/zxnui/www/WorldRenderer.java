@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * 世界渲染
+ */
 public class WorldRenderer {
 	static final float FRUSTUM_WIDTH = 10;
 	static final float FRUSTUM_HEIGHT = 15;
